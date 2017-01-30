@@ -1,4 +1,4 @@
-package org.p1.config;
+package org.p1;
 
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"org.p1.config", "org.p1.dao.impl"})
+@ComponentScan(basePackages={"org.p1.config", "org.p1.dao.impl", "org.p1.service.impl"})
 public class Application {
     
     public static void main(String[] args) {

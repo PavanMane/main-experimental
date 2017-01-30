@@ -4,22 +4,24 @@ import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.p1.base.BaseSpringTest;
 import org.p1.dao.User;
-import org.p1.dao.impl.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-@EnableAutoConfiguration
 public class UserRepositoryTest extends BaseSpringTest {
 	
 	@Autowired
 	private UserRepository userRepository;
 	
+	@BeforeClass
+	public static void onLoad() {
+		System.out.println("***** ----- Running UserRepository test cases .....");
+	}
+	
 	@Before
 	public void init() {
-		System.out.println("***** ----- Running UserRepository test cases .....");
 		Assert.assertNotNull(userRepository);
 	}
 	

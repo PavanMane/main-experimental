@@ -3,23 +3,26 @@ package org.p1.dao.impl;
 import java.util.Date;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.p1.base.BaseSpringTest;
 import org.p1.dao.IUserDAO;
 import org.p1.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.Assert;
 
-@EnableAutoConfiguration
 public class UserDAOImplTest extends BaseSpringTest {
 
 	@Autowired
 	private IUserDAO userDAO;
+
+	@BeforeClass
+	public static void onLoad() {
+		System.out.println("***** ----- Running UserDAOImplTest test cases .....");
+	}
 	
 	@Before
 	public void init() {
-		System.out.println("***** ----- Running UserDAOImplTest test cases .....");
 		Assert.notNull(userDAO);
 	}
 	

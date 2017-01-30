@@ -5,9 +5,9 @@ import java.util.List;
 import org.p1.dao.IUserDAO;
 import org.p1.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class UserDAOImpl implements IUserDAO {
 	
 	@Autowired

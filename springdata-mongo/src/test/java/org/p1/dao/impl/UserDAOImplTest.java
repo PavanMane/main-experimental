@@ -10,9 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.p1.base.BaseSpringTest;
 import org.p1.dao.Bottle;
+import org.p1.dao.Bottle.Type;
 import org.p1.dao.IUserDAO;
 import org.p1.dao.User;
-import org.p1.dao.Bottle.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -29,6 +29,7 @@ public class UserDAOImplTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		Assert.notNull(userDAO);
+		mongoTemplate.dropCollection(User.class);
 	}
 	
 	@Test

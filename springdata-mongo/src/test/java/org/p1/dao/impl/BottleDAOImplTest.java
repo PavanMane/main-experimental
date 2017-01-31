@@ -19,6 +19,7 @@ public class BottleDAOImplTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		Assert.notNull(bottleDAO);
+		mongoTemplate.dropCollection(Bottle.class);
 	}
 	
 	@Test

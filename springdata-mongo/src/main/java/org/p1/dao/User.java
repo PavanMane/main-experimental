@@ -24,7 +24,7 @@ public class User {
 	
 	private List<Bottle> bottles;
 	
-	private PermanentAccountNumber pan;
+	private Transaction pan;
 
 	public String getId() {
 		return id;
@@ -82,11 +82,11 @@ public class User {
 		this.bottles = bottles;
 	}
 
-	public PermanentAccountNumber getPan() {
+	public Transaction getPan() {
 		return pan;
 	}
 
-	public void setPan(PermanentAccountNumber pan) {
+	public void setPan(Transaction pan) {
 		this.pan = pan;
 	}
 }

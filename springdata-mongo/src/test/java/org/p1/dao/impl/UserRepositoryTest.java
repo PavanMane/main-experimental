@@ -23,6 +23,7 @@ public class UserRepositoryTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		Assert.assertNotNull(userRepository);
+		mongoTemplate.dropCollection(User.class);
 	}
 	
 	

@@ -9,6 +9,8 @@ import org.p1.dao.Bottle;
 import org.p1.dao.Bottle.Type;
 import org.p1.dao.IBottleDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 public class BottleDAOImplTest extends BaseSpringTest {
@@ -19,7 +21,10 @@ public class BottleDAOImplTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		Assert.notNull(bottleDAO);
-		mongoTemplate.dropCollection(Bottle.class);
+//		mongoTemplate.dropCollection(Bottle.class);
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").regex(".*"));
+		mongoTemplate.remove(query, "bottle");
 	}
 	
 	@Test
@@ -35,6 +40,25 @@ public class BottleDAOImplTest extends BaseSpringTest {
 		//get
 		Assert.notNull(bottleDAO.get(Type.SIPPER, name));
 		bottleDAO.delete(Type.SIPPER, name);
+		Assert.isNull(bottleDAO.get(Type.SIPPER, name));
+	}
+	
+	@Test
+	public void saveDeleteAll() {
+		String name = "CamelBack" + UUID.randomUUID();
+		Bottle bottle1 = new Bottle();
+		bottle1.setName(name);
+		bottle1.setType(Type.SIPPER);
+		
+		//save
+		bottleDAO.save(bottle1);
+		
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").regex(".*"));
+		
+		// remove all
+		mongoTemplate.remove(query, "bottle");
+		
 		Assert.isNull(bottleDAO.get(Type.SIPPER, name));
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -24,8 +25,9 @@ public class User {
 	
 	private List<Bottle> bottles;
 	
-	private Transaction pan;
-
+	@DBRef
+	private List<Role> roles; 
+	
 	public String getId() {
 		return id;
 	}
@@ -82,11 +84,11 @@ public class User {
 		this.bottles = bottles;
 	}
 
-	public Transaction getPan() {
-		return pan;
+	public List<Role> getRoles() {
+		return roles;
 	}
 
-	public void setPan(Transaction pan) {
-		this.pan = pan;
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 }

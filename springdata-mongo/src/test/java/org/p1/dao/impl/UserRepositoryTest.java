@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.p1.base.BaseSpringTest;
 import org.p1.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 public class UserRepositoryTest extends BaseSpringTest {
 	
@@ -23,7 +25,9 @@ public class UserRepositoryTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		Assert.assertNotNull(userRepository);
-		mongoTemplate.dropCollection(User.class);
+		Query query = new Query();
+		query.addCriteria(Criteria.where("loginName").regex(".*"));
+		mongoTemplate.remove(query, User.class);
 	}
 	
 	
@@ -38,6 +42,8 @@ public class UserRepositoryTest extends BaseSpringTest {
 		user.setLastName("Mane");
 		user.setLoginName(loginName);
 		user.setDob(new Date());
+		// figure out ignore if embedded has compound unique index and is null
+		user.setBottles(UserDAOImplTest.getBottles());
 		userRepository.save(user);
 		
 		User user2 = new User();
@@ -46,6 +52,8 @@ public class UserRepositoryTest extends BaseSpringTest {
 		user2.setLastName("Mane");
 		user2.setLoginName("pamane@novopay.in");
 		user2.setDob(new Date());
+		// figure out ignore if embedded has compound unique index and is null
+		user.setBottles(UserDAOImplTest.getBottles());
 		userRepository.save(user2);
 		
 		

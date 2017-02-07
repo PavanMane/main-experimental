@@ -14,6 +14,8 @@ import org.p1.dao.Bottle.Type;
 import org.p1.dao.IUserDAO;
 import org.p1.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 public class UserDAOImplTest extends BaseSpringTest {
@@ -29,7 +31,9 @@ public class UserDAOImplTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		Assert.notNull(userDAO);
-		mongoTemplate.dropCollection(User.class);
+		Query query = new Query();
+		query.addCriteria(Criteria.where("loginName").regex(".*"));
+		mongoTemplate.remove(query, User.class);
 	}
 	
 	@Test
@@ -101,7 +105,7 @@ public class UserDAOImplTest extends BaseSpringTest {
 		Assert.isTrue(isException);
 	}
 	
-	private List<Bottle> getBottles() {
+	public static List<Bottle> getBottles() {
 		List<Bottle> bottles = new ArrayList<>();
 		String pattern = "CamelBack";
 		

@@ -6,10 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.p1.base.BaseSpringTest;
 import org.p1.dao.Account;
+import org.p1.dao.Bottle;
 import org.p1.dao.ITransactionDAO;
 import org.p1.dao.Transaction;
 import org.p1.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 public class TransactionDAOImplTest extends BaseSpringTest {
@@ -20,9 +23,18 @@ public class TransactionDAOImplTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		Assert.notNull(transactionDAO);
-		mongoTemplate.dropCollection(User.class);
-		mongoTemplate.dropCollection(Account.class);
-		mongoTemplate.dropCollection(Transaction.class);
+		Query query = new Query();
+		query.addCriteria(Criteria.where("loginName").regex(".*"));
+		mongoTemplate.remove(query, User.class);
+		
+		query = new Query();
+		query.addCriteria(Criteria.where("number").regex(".*"));
+		mongoTemplate.remove(query, Account.class);
+		
+		query = new Query();
+		query.addCriteria(Criteria.where("details").regex(".*"));
+		mongoTemplate.remove(query, Transaction.class);
+		
 	}
 	
 

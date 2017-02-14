@@ -18,8 +18,6 @@ public class MongoDBConfiguration extends AbstractMongoConfiguration {
 
 	@Override
 	protected String getDatabaseName() {
-		System.out.println("************************* Connecting to Database ---> " + mongoDBCredentials.getDatabaseName() + ":"
-				+ mongoDBCredentials.getHost() + ":" + mongoDBCredentials.getPort() + " *************************");
 		return mongoDBCredentials.getDatabaseName();
 	}
 

@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.p1.base.BaseSpringTest;
 import org.p1.dao.Account;
-import org.p1.dao.Bottle;
 import org.p1.dao.ITransactionDAO;
 import org.p1.dao.Transaction;
 import org.p1.dao.User;
@@ -92,6 +91,7 @@ public class TransactionDAOImplTest extends BaseSpringTest {
 		user.setLastName("Mane");
 		user.setLoginName(loginName);
 		user.setDob(new Date());
+		user.setBottles(UserDAOImplTest.getBottles());
 		mongoTemplate.save(user);
 		
 		String acc1Num = "123456-7890";
@@ -99,6 +99,7 @@ public class TransactionDAOImplTest extends BaseSpringTest {
 		acc1.setAccountType("Savings");
 		acc1.setNumber(acc1Num);
 		acc1.setUser(user);
+		user.setBottles(UserDAOImplTest.getBottles());
 		mongoTemplate.save(acc1);
 		
 		Account acc2 = new Account();

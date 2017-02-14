@@ -82,43 +82,11 @@ public class UserServiceImplTest extends BaseSpringTest {
 		// update test
 		String lastName = "Mane";
 		user.setLastName(lastName);
-		when(userDAO.getByLoginName(loginName)).thenReturn(user);
 		when(userDAO.update(any())).thenReturn(user);
 		userService.updateUser(userDTO);
-		verify(userDAO, times(1)).getByLoginName(any());
 		verify(userDAO, times(1)).update(any());
 		Assert.isTrue(loginName.equals(user.getLoginName()));
 		Assert.isTrue(lastName.equals(user.getLastName()));
-	}
-
-	@Test
-	public void updateWithException() throws Exception {
-		boolean exceptionThrown = false;
-		String loginName = "blah_" + UUID.randomUUID();
-
-		User user = new User();
-		user.setLoginName(loginName);
-
-		UserDTO userDTO = new UserDTO();
-		userDTO.setLoginName(loginName);
-
-		// update test
-		String lastName = "Mane";
-		user.setLastName(lastName);
-		when(userDAO.getByLoginName(loginName)).thenReturn(null);
-		when(userDAO.update(any())).thenReturn(user);
-		try {
-			userService.updateUser(userDTO);
-		} catch (Exception e) {
-			exceptionThrown = true;
-			System.out.println("Expected exception..... everything okay!!!");
-			e.printStackTrace();
-		}
-		
-		verify(userDAO, times(1)).getByLoginName(any());
-		verify(userDAO, times(0)).update(any());
-		
-		Assert.isTrue(exceptionThrown);
 	}
 
 	@Test

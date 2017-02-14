@@ -53,7 +53,7 @@ public class UserRepositoryTest extends BaseSpringTest {
 		user2.setLoginName("pamane@novopay.in");
 		user2.setDob(new Date());
 		// figure out ignore if embedded has compound unique index and is null
-		user.setBottles(UserDAOImplTest.getBottles());
+		user2.setBottles(UserDAOImplTest.getBottles());
 		userRepository.save(user2);
 		
 		

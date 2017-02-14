@@ -2,6 +2,9 @@ package org.p1.dto;
 
 import org.p1.dao.Bottle.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class BottleDTO {
 
 	private Type type;

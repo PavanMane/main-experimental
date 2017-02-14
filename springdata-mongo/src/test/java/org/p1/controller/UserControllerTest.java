@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.UUID;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.p1.base.BaseSpringTest;
 import org.p1.dao.IUserDAO;
@@ -13,6 +14,8 @@ import org.p1.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -29,6 +32,14 @@ public class UserControllerTest extends BaseSpringTest {
 
 	@Autowired
 	private IUserDAO userDAO;
+	
+	@Before
+	public void init() {
+		Assert.notNull(userDAO);
+		Query query = new Query();
+		query.addCriteria(Criteria.where("loginName").regex(".*"));
+		mongoTemplate.remove(query, User.class);
+	}
 
 	@Test
 	public void testGet() throws Exception {

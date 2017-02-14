@@ -35,13 +35,17 @@
 	*** gcloud docker push <zone>/<projectid>/<docker_image_name>
 		Example:- gcloud docker push us.gcr.io/p1-springboot-mongodb/test_usermrsvc_v0.1.1
 
-- *** gcloud config set container/cluster kub-cluster-spring-data
+- Set the cluster to use
+	*** gcloud config set container/cluster kub-cluster-spring-data
 
-- *** gcloud container clusters get-credentials kub-cluster-spring-data
+- Get the credentials
+	*** gcloud container clusters get-credentials kub-cluster-spring-data
 
-- *** kubectl run p1-springboot-mongo-v1 --image us.gcr.io/p1-springboot-mongodb/test_usermrsvc_v0.1.1
+- Run the deployment locally
+	*** kubectl run p1-springboot-mongo-v1 --image us.gcr.io/p1-springboot-mongodb/test_usermrsvc_v0.1.1
 
-- *** kubectl expose deployment p1-springboot-mongo-v1 --port=80 --target-port=8080 --name=p1-springboot-mongo-service --type=LoadBalancer
+- Expose the deployment over an load balancer
+	*** kubectl expose deployment p1-springboot-mongo-v1 --port=80 --target-port=8080 --name=p1-springboot-mongo-service --type=LoadBalancer
 
 - For Rolling update
 	*** kubectl rolling-update p1-springboot-mongo-v1 --image us.gcr.io/p1-springboot-mongodb/test_usermrsvc_v0.1.2

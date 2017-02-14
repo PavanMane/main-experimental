@@ -30,10 +30,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void updateUser(UserDTO userDTO) throws Exception {
-		User user = userDAO.getByLoginName(userDTO.getLoginName());
-		if(user == null) {
-			throw new  Exception("User not found !!!");
-		}
 		userDAO.update(copyFromDTO(userDTO));
 	}
 

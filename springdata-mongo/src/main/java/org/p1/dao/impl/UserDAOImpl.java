@@ -46,7 +46,7 @@ public class UserDAOImpl implements IUserDAO {
 		_userInDB.setFirstName(user.getFirstName());
 		_userInDB.setMiddleName(user.getMiddleName());
 		_userInDB.setLastName(user.getLastName());
-		return userRepository.save(user);
+		return userRepository.save(_userInDB);
 	}
 
 	@Override

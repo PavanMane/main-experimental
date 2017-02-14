@@ -1,5 +1,7 @@
 package org.p1.dto;
 
+import java.util.List;
+
 public class UserDTO {
 
 	private String firstName;
@@ -7,6 +9,8 @@ public class UserDTO {
 	private String lastName;
 	private String loginName;
 	private String dob;
+	private List<BottleDTO> bottles;
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -36,6 +40,12 @@ public class UserDTO {
 	}
 	public void setDob(String dob) {
 		this.dob = dob;
+	}
+	public List<BottleDTO> getBottles() {
+		return bottles;
+	}
+	public void setBottles(List<BottleDTO> bottles) {
+		this.bottles = bottles;
 	}
 	
 }

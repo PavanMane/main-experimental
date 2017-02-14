@@ -74,6 +74,28 @@ public class UserDAOImplTest extends BaseSpringTest {
 	}
 	
 	@Test
+	public void testUpdate() {
+		String firstName = "Pavan";
+		String middleName = "Vasant";
+		String loginName = "pavan.mane@novopay.in";
+		User user = new User();
+		user.setFirstName(firstName);
+		user.setMiddleName(middleName);
+		user.setLastName("Mane");
+		user.setLoginName(loginName);
+		user.setDob(new Date());
+		user.setBottles(getBottles());
+		userDAO.save(user);
+		
+		user.setMiddleName(middleName + "_updated");
+		userDAO.update(user);
+		
+		Assert.isTrue(userDAO.getByLoginName(loginName).getMiddleName().equals(middleName + "_updated"));
+		
+		userDAO.delete(user);
+	}
+	
+	@Test
 	public void testDuplicate() {
 		boolean isException = false;
 		String loginName = "pavan.mane@novopay.in";
@@ -122,5 +144,16 @@ public class UserDAOImplTest extends BaseSpringTest {
 		bottles.add(bottle1);
 		
 		return bottles;
+	}
+	
+	public static User getUser(String loginName, String firstName, String middleName) {
+		User user = new User();
+		user.setFirstName(firstName);
+		user.setMiddleName(middleName);
+		user.setLastName("Mane");
+		user.setLoginName(loginName);
+		user.setDob(new Date());
+		user.setBottles(UserDAOImplTest.getBottles());
+		return user;
 	}
 }

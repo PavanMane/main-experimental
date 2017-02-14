@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-svc-a
+  labels:
+    name: mongo-svc-a
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 27017
+    targetPort: 27017
+    protocol: TCP
+    name: mongo-svc-a
+  selector:
+    name: mongo-node1
+    instance: rod
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: mongo-rc1
+  labels:
+    name: mongo-rc
+spec:
+  replicas: 1
+  selector:
+    name: mongo-node1
+  capacity:
+    storage: 20Gi
+  template:
+    metadata:
+      labels:
+        name: mongo-node1
+        instance: rod
+    spec:
+      containers:
+      - name: mongo-node1
+        image: mongo
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-persistent-storage1
+          mountPath: /data/db
+      volumes:
+      - name: mongo-persistent-storage1
+        gcePersistentDisk:
+          pdName: mongodb-disk1-in-cluster1
+          fsType: ext4

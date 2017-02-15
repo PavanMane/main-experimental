@@ -15,9 +15,14 @@ apply plugin: 'org.springframework.boot'
 //apply plugin: 'findbugs'
 //apply plugin: 'pmd'
 
+ext.microserviceBaseName = 'moi-user'
+ext.globalVersion = 'v0.2.1'
+ext.deployDir = 'deploy/application/dist'
+
 jar {
-    baseName = 'p1-springdata-mongo'
-    version =  '0.2.0'
+    baseName = project.property('microserviceBaseName')
+    version =  project.property('globalVersion')
+    destinationDir = file(project.property('deployDir'))
 }
 
 repositories {
@@ -47,4 +52,8 @@ dependencies {
 
     //testCompile("org.hamcrest:hamcrest-all:1.3")
 }
+
+println jar.archiveName
+
+println 'howdy...'
 

@@ -3,15 +3,35 @@
 	
 - Go the root folder, where you have build.gradle
 
+- Run build
+	*** ./gradlew build && java -jar deploy/application/dist/moi-user-v0.1.0.jar (Check revision)
+
 - create docker image
-	*** docker build -t <app>_<microservice_name>_v<version major.minor.buildnumber> . 
+	*** docker build -t <app>-<microservice_name>-v<version major.minor.buildnumber> . 
+	Exampel: docker build -t us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0 .
 		The '.' in the end is important
 
 - check if the image is created
 	*** docker images
 
 - check if the container is runs fine
-	*** docker run -P <app>_<microservice_name>_v<version major.minor.buildnumber>
+	*** docker run - P us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0
+	*** docker run --rm -it -p 8080:8080 <app>-<microservice_name>-v<version major.minor.buildnumber>
+	Example: docker run --rm -it -p 8080:8080 us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0
+	access application: http://localhost:8080/...
+
+	if in the above docker run the -rm -it -p 8080:8080 opts were not used, the do 
+		docker ps
+		check the ports column, example: 0.0.0.0:<someportnumber>->8080/tcp
+		you can then access the application via
+		http://localhost:<someportnumber>/...
+
+	-----------
+	 Debugging
+	-----------
+		check the jar file name is correct in DockerFile
+		ensure application.properties has network ip not 127.0.0.1, else the container cannot talk to host machines mongodb.
+		ensure mongodb is running 
 
 - check the status
 	*** docker ps
@@ -29,11 +49,9 @@
 - Install "Kubectl"
 	*** gcloud components update kubectl
 
-- build image and push in the private repository of the project that you created in google cloud
-	*** docker build -t <zone>/<projectid>/<docker_image_name> .
-		Example:- docker build -t us.gcr.io/p1-springboot-mongodb/test_usermrsvc_v0.1.1 .
+- Push Google Cloud
 	*** gcloud docker push <zone>/<projectid>/<docker_image_name>
-		Example:- gcloud docker push us.gcr.io/p1-springboot-mongodb/test_usermrsvc_v0.1.1
+		Example: gcloud docker push us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0
 
 - Set the cluster to use
 	*** gcloud config set container/cluster kub-cluster-spring-data
@@ -42,7 +60,10 @@
 	*** gcloud container clusters get-credentials kub-cluster-spring-data
 
 - Run the deployment locally
-	*** kubectl run p1-springboot-mongo-v1 --image us.gcr.io/p1-springboot-mongodb/test_usermrsvc_v0.1.1
+	*** kubectl run p1-springboot-mongo-v1 --image us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0
+
+	Debugging
+		- if not able to execute change the wifi connection to NOVOPAY TECH-OPS[X]
 
 - Expose the deployment over an load balancer
 	*** kubectl expose deployment p1-springboot-mongo-v1 --port=80 --target-port=8080 --name=p1-springboot-mongo-service --type=LoadBalancer
@@ -59,3 +80,6 @@
 Ensure the mongodb points to the mongodb service running on cloud.
 Check /deploy/database/Readme.txt
 
+- Delete 
+	*** kubectl delete p1-springboot-mongo-service
+	kubectl delete deployment p1-springboot-mongo-v1

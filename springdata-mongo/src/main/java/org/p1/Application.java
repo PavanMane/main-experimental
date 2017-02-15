@@ -1,7 +1,5 @@
 package org.p1;
 
-import java.util.Arrays;
-
 import org.p1.config.MongoDBCredentials;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,17 +14,17 @@ public class Application {
     	
     	
         ApplicationContext ctx = SpringApplication.run(Application.class, args);
-        
-        System.out.println("Let's inspect the beans provided by Spring Boot:");
-        
-        String[] beanNames = ctx.getBeanDefinitionNames();
-        Arrays.sort(beanNames);
-        for (String beanName : beanNames) {
-            System.out.println(beanName);
-        }
+//        
+//        System.out.println("Let's inspect the beans provided by Spring Boot:");
+//        
+//        String[] beanNames = ctx.getBeanDefinitionNames();
+//        Arrays.sort(beanNames);
+//        for (String beanName : beanNames) {
+//            System.out.println(beanName);
+//        }
         MongoDBCredentials mongoDBCredentials = ctx.getBean(MongoDBCredentials.class);
         
-        System.out.println("************************* Connecting to Database ---> " + mongoDBCredentials.getDatabaseName() + ":"
+        System.out.println("************************* Connected to Database ---> [  " + mongoDBCredentials.getDatabaseName() + "  ] >>> "
 				+ mongoDBCredentials.getHost() + ":" + mongoDBCredentials.getPort() + " *************************");
     }
 

@@ -1,6 +1,18 @@
 - Follow the instructions under the following blog:
 	https://kubernetes.io/docs/tutorials/stateful-application/run-stateful-application/
 
+- Use any cloud provider. For this example i will be using Google cloud
+
+- Create project and container cluster in google cloud
+
+- Install "Google cloud SDK"
+
+- Check your googlecloud installation
+	*** gcloud config list
+
+- Install "Kubectl"
+	*** gcloud components update kubectl
+
 - First create a disk
 	*** gcloud compute disks create --size=15GB mongo-disk-demo1
 

@@ -17,7 +17,7 @@
 - check if the container is runs fine
 	*** docker run - P us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0
 	*** docker run --rm -it -p 8080:8080 <app>-<microservice_name>-v<version major.minor.buildnumber>
-	Example: docker run --rm -it -p 8080:8080 us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0
+		Example: docker run --rm -it -p 8080:8080 us.gcr.io/p1-springboot-mongodb/moi-user-v0.1.0
 	access application: http://localhost:8080/...
 
 	if in the above docker run the -rm -it -p 8080:8080 opts were not used, the do 
@@ -81,5 +81,8 @@ Ensure the mongodb points to the mongodb service running on cloud.
 Check /deploy/database/Readme.txt
 
 - Delete 
-	*** kubectl delete p1-springboot-mongo-service
+	docker rm $(docker ps -a -q)
+	docker rm $(docker ps -q)
+	docker rmi -f $(docker images -q)
+	*** kubectl delete service p1-springboot-mongo-service
 	kubectl delete deployment p1-springboot-mongo-v1

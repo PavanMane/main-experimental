@@ -3,8 +3,17 @@
 	
 - Go the root folder, where you have build.gradle
 
+- ./gradlew eclipse
+
+- *** open sts the host name must be the IP of the machine
+
+- start mongodb
+
 - Run build
 	*** ./gradlew build && java -jar deploy/application/dist/moi-user-v0.1.0.jar (Check revision)
+
+- check if images are already present
+	*** docker images / docker ps -a
 
 - create docker image
 	*** docker build -t <app>-<microservice_name>-v<version major.minor.buildnumber> . 
@@ -48,6 +57,8 @@
 
 - Install "Kubectl"
 	*** gcloud components update kubectl
+
+- run the commands from springboot-mongo folder
 
 - Push Google Cloud
 	*** gcloud docker push <zone>/<projectid>/<docker_image_name>

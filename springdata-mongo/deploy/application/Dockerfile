@@ -1,5 +1,5 @@
 FROM jeanblanchard/java:8
-MAINTAINER manep82@gmail.com
+MAINTAINER pavan.mane@novopay.in
 
 RUN mkdir -p DockerImage
 

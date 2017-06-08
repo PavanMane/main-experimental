@@ -11,7 +11,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-//apply plugin: 'check***'
+//apply plugin: 'check***00'
 //apply plugin: 'findbugs'
 //
 
